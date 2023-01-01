@@ -55,7 +55,7 @@ public class StudentController {
     // 查询学生信息
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable int id) {
-        return studentService.getStudentById(id);
+        return studentMapper.selectById(id);
     }
 
 }
