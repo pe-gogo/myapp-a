@@ -1,7 +1,10 @@
 package com.example.demotest.myapp.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.demotest.myapp.entity.ResponseDto;
 import com.example.demotest.myapp.entity.Student;
 import com.example.demotest.myapp.entity.Teacher;
+import com.example.demotest.myapp.mapper.StudentMapper;
 import com.example.demotest.myapp.service.impl.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +16,12 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-    // 添加学生
-    @PostMapping
-    public void addStudent(@RequestBody Teacher student) {
-        teacherService.addTeacher(student);
-    }
+    @Autowired
+    private StudentMapper studentMapper;
+
+    ResponseDto responseDto = new ResponseDto();
+
+
 
     // 删除学生
     @DeleteMapping("/{id}")

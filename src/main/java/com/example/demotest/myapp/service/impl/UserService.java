@@ -29,11 +29,15 @@ public class UserService {
     }
 
     public boolean register(User user) {
+        Teacher teacher = teacherMapper.selectOne(new QueryWrapper<Teacher>().eq("username", user.getUsername()).eq("password", user.getPassword()));
+        Student student = studentMapper.selectOne(new QueryWrapper<Student>().eq("username", user.getUsername()).eq("password", user.getPassword()));
+        if(student!=null || teacher !=null){
+            return false;
+        }
         System.out.println(user);
-
-        if ("student".equals(user.getRole())) {
+        if ("student".equals(user.getType())) {
             return studentMapper.insert(new Student(user.getUsername(), user.getPassword())) > 0;
-        } else if("teacher".equals(user.getRole())){
+        } else if("teacher".equals(user.getType())){
             return teacherMapper.insert(new Teacher(user.getUsername(), user.getPassword())) > 0;
         }
         return false;
